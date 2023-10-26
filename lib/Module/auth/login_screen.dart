@@ -47,7 +47,7 @@ class LogInScreen extends GetView<AuthController> {
                           keyboardType: TextInputType.text,
                           validator: (value) {
                             if (value?.isEmpty ?? true) {
-                              return 'Please Enter username';
+                              return 'Please Enter user id';
                             } else {
                               return null;
                             }
@@ -57,7 +57,7 @@ class LogInScreen extends GetView<AuthController> {
                               Icons.person_outline,
                               size: 20,
                             ),
-                            hintText: 'Email',
+                            hintText: 'User ID',
                           ),
                         ),
                         const SizedBox(
@@ -185,7 +185,7 @@ class LogInScreen extends GetView<AuthController> {
                               if (loginFormKey.currentState!.validate()) {
                                 String userName = controller.emailVerifyController.value.text;
                                 String pass = controller.passWordController.value.text;
-                               // await controller.loggedIn(userName,pass);
+                                await controller.userLogin(userName,pass);
                               }
                             }else {
                               ScaffoldMessenger.of(context).showSnackBar(

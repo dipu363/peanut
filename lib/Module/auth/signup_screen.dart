@@ -200,10 +200,6 @@ class SignUpScreen extends GetView<UsersController> {
               ),
               Column(
                 children: [
-                  Text(
-                    'keep noted your email and password for log in next time,  thank you.',
-                    style: subtitleTextStyle,
-                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
