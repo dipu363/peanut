@@ -21,6 +21,24 @@ class AuthController extends GetxController{
   var obscurePassword = true.obs;
   var isChecked = false.obs;
 
+@override
+  void onInit() async{
+  super.onInit();
+  //sessionExpire();
+  }
+  void sessionExpire()async{
+    if(UserCache.isUserEmpty()){
+      Get.offAllNamed(Routes.AUTH);
+    }else{
+      if(await UserCache.isSessionExpire()){
+        Get.offAllNamed(Routes.AUTH);
+      }else{
+        Get.offAllNamed(Routes.PROFILE);
+      }
+
+    }
+  }
+
  Future<void> userLogin(username,password) async{
    final requestPayload = APIRequestParam(
        path: ApiEndPoints.authModule.login,
@@ -38,12 +56,13 @@ class AuthController extends GetxController{
                (success)async{
                  log("Login Data Fetched ${success.data.toString()}");
                  UserModel user = UserModel.fromJson(success.data);
-
-                 await UserCache.clearUserData();
+                 await UserCache.clearUserToken();
                  await UserCache.clearUserId();
-                 await UserCache.saveUserData(user);
+                 await UserCache.saveUserToken(user!.token);
                  await UserCache.saveUserId(username);
-                 log("STORE USER DATA ${await UserCache.getUserId()} ");
+                 log("STORE USER id ${await UserCache.getUserId()} ");
+                 var userdata = UserCache.getUserToken();
+                 log("STORE USER token $userdata ");
                    Get.offAllNamed(Routes.PROFILE);
                }
        );
@@ -58,7 +77,7 @@ class AuthController extends GetxController{
 
  }
   Future<void> logOut() async {
-    await UserCache.clearUserData();
+    await UserCache.clearUserToken();
     await UserCache.clearUserId();
       Get.offAllNamed(Routes.AUTH);
 

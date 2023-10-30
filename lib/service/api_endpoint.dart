@@ -17,5 +17,6 @@ class AuthModule {
 class ProfileModule {
   static final String _baseURL = ApiEndPoints.apiEndpoint;
   final String accountInfo = p.join(_baseURL, 'GetAccountInformation');
+  final String phoneNo = p.join(_baseURL, 'GetLastFourNumbersPhone');
 }
 
