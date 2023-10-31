@@ -4,11 +4,13 @@ import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:peanut/Module/profile/profile_binding.dart';
+import 'package:peanut/Module/profile/profile_screen.dart';
 import 'package:peanut/service/api_service.dart';
 
 import '../../routes/app_pages.dart';
 import '../../service/api_endpoint.dart';
-import 'data/user_cache.dart';
+import '../../utils/user_cache.dart';
 import 'data/user_model.dart';
 
 class AuthController extends GetxController{
@@ -27,7 +29,7 @@ class AuthController extends GetxController{
   //sessionExpire();
   }
   void sessionExpire()async{
-    if(UserCache.isUserEmpty()){
+    if( await UserCache.isUserEmpty()){
       Get.offAllNamed(Routes.AUTH);
     }else{
       if(await UserCache.isSessionExpire()){
@@ -40,6 +42,7 @@ class AuthController extends GetxController{
   }
 
  Future<void> userLogin(username,password) async{
+   await Future.delayed(Duration(seconds: 2));
    final requestPayload = APIRequestParam(
        path: ApiEndPoints.authModule.login,
        data: {"login": '$username', "password": '$password'}
@@ -58,12 +61,20 @@ class AuthController extends GetxController{
                  UserModel user = UserModel.fromJson(success.data);
                  await UserCache.clearUserToken();
                  await UserCache.clearUserId();
-                 await UserCache.saveUserToken(user!.token);
-                 await UserCache.saveUserId(username);
+                 if(user.result){
+                   await UserCache.saveUserToken(user!.token);
+                   await UserCache.saveUserId(username);
+                 }
+
                  log("STORE USER id ${await UserCache.getUserId()} ");
-                 var userdata = UserCache.getUserToken();
+                 var userdata = await UserCache.getUserToken();
                  log("STORE USER token $userdata ");
+                 if(! await UserCache.isUserEmpty()){
                    Get.offAllNamed(Routes.PROFILE);
+                 }else{
+                   Get.snackbar("error ", "Token not found");
+                 }
+
                }
        );
 
