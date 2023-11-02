@@ -4,8 +4,6 @@ import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:peanut/Module/profile/profile_binding.dart';
-import 'package:peanut/Module/profile/profile_screen.dart';
 import 'package:peanut/service/api_service.dart';
 
 import '../../routes/app_pages.dart';
@@ -23,11 +21,6 @@ class AuthController extends GetxController{
   var obscurePassword = true.obs;
   var isChecked = false.obs;
 
-@override
-  void onInit() async{
-  super.onInit();
-  //sessionExpire();
-  }
   void sessionExpire()async{
     if( await UserCache.isUserEmpty()){
       Get.offAllNamed(Routes.AUTH);
@@ -42,7 +35,7 @@ class AuthController extends GetxController{
   }
 
  Future<void> userLogin(username,password) async{
-   await Future.delayed(Duration(seconds: 2));
+   await Future.delayed(const Duration(seconds: 2));
    final requestPayload = APIRequestParam(
        path: ApiEndPoints.authModule.login,
        data: {"login": '$username', "password": '$password'}
@@ -62,7 +55,7 @@ class AuthController extends GetxController{
                  await UserCache.clearUserToken();
                  await UserCache.clearUserId();
                  if(user.result){
-                   await UserCache.saveUserToken(user!.token);
+                   await UserCache.saveUserToken(user.token);
                    await UserCache.saveUserId(username);
                  }
 

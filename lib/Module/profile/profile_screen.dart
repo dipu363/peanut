@@ -34,7 +34,7 @@ class ProfileScreen extends GetView<ProfileController> {
             : Column(
                 children: [
                   Container(
-                      color: Colors.red.withOpacity(.2),
+                      color: primaryColor.withOpacity(.7),
                       height: 150,
                       width: double.infinity,
                       child: Padding(
@@ -51,12 +51,12 @@ class ProfileScreen extends GetView<ProfileController> {
                             Text(
                               'Name: ${controller.accountInfoModel.value.name} ',
                               style: const TextStyle(
-                                  fontSize: 20, color: Colors.red),
+                                  fontSize: 20, color: Colors.white),
                             ),
                             Text(
                               'Country: ${controller.accountInfoModel.value.country} ',
                               style: const TextStyle(
-                                  fontSize: 12, color: primaryColor),
+                                  fontSize: 12, color: Colors.white),
                             ),
                           ],
                         ),

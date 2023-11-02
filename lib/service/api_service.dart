@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart' ;
-import 'package:flutter/foundation.dart';
 
 import 'api_endpoint.dart';
 class APIRequestParam {
@@ -42,7 +41,7 @@ class APIRequestParam {
 
   APIRequestParam copyWith({
     String? path,
-    dynamic? data,
+    dynamic data,
     Map<String, dynamic>? queryParameters,
     Options? options,
   }) {
@@ -148,31 +147,3 @@ class AppApiProvider implements ApiProvider {
     });
   }
 }
-/*
-class ApiService {
-  static const String baseUrl = 'https://peanut.ifxdb.com/api';
-
-  static const String basePort = '/ClientCabinetBasic';
-
-
-
-  static Future<Response> userLogIn(String username, String password) async {
-
-    Response? response;
-    var dio = Dio();
-    var url = "";
-    url = '$baseUrl$basePort/IsAccountCredentialsCorrect';
-    try {
-      response = await dio.post(
-        url,
-        data: {'user_name': username, 'password': password},
-        options: Options(contentType: Headers.jsonContentType),
-      );
-    } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
-    }
-    return response!;
-  }
-}*/

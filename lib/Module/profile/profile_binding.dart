@@ -6,7 +6,7 @@ class ProfileBinding extends Bindings{
   @override
   void dependencies() {
     Get.put<ProfileController>(ProfileController());
-    Get.lazyPut<TradesController>(() => TradesController());
+    Get.put(TradesController());
   }
 
 }

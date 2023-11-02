@@ -1,58 +1,148 @@
-
 import 'package:flutter/material.dart';
-class OpenTradesScreen extends StatefulWidget {
+import 'package:peanut/Module/profile/trades_controller.dart';
+import 'package:get/get.dart';
+import 'package:peanut/utils/app_colors.dart';
+
+class OpenTradesScreen extends GetView<TradesController> {
   const OpenTradesScreen({Key? key}) : super(key: key);
 
   @override
-  State<OpenTradesScreen> createState() => _OpenTradesScreenState();
-}
-
-class _OpenTradesScreenState extends State<OpenTradesScreen> {
-
-  List<String> items = [
-    "Item 1",
-    "Item 2",
-    "Item 3",
-    "Item 4",
-    "Item 5",
-  ];
-  Future<void> _refreshData() async {
-    // Simulate loading data for 2 seconds.
-    await Future.delayed(Duration(seconds: 2));
-
-    // Replace this with your actual data fetching logic.
-    setState(() {
-      // Update your data source here.
-      items = [
-        "New Item 1",
-        "New Item 2",
-        "New Item 3",
-        "New Item 4",
-        "New Item 5",
-      ];
-    });
-}
-
-  @override
   Widget build(BuildContext context) {
+    controller.getOpenTrades();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Open Trades'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: RefreshIndicator(
-          onRefresh: _refreshData,
-          child: ListView.builder(
-            itemCount: items.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(items[index]),
-              );
-            },
+      body: Column(
+        children: [
+          Container(
+            width: double.infinity,
+            color: primaryColor,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Text('Net Profit :${controller.netProfit.value.toStringAsFixed(2).toString()}',style: const TextStyle(fontSize: 24 ,color: Colors.white),),
+                  ],
+                ),
+              )
           ),
-        ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Obx(
+                () => RefreshIndicator(
+                  onRefresh: controller.getOpenTrades,
+                  child: ListView.builder(
+                    itemCount: controller.openTrades.length,
+                    itemBuilder: (context, index) {
+                      return openTradesCard(controller, index);
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
+}
+
+Widget openTradesCard(controller, index) {
+  return Card(
+    child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+/*        "currentPrice": 1845.68,
+          "comment": null,
+          "digits": 2,
+          "login": 2088888,
+          "openPrice": 4732.58,
+          "openTime": "2021-11-08T06:35:33",
+          "profit": -28.87,
+          "sl": 0.0,
+          "swaps": 0.0,
+          "symbol": "#Ethereum",
+          "tp": 0.0,
+          "ticket": 1386773321,
+          "type": 0,
+          "volume": 0.01*/
+          Container(
+
+            decoration: BoxDecoration(
+              borderRadius:BorderRadius.circular(10),
+              color: Colors.green.withOpacity(.1),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    "ID :${controller.openTrades[index].ticket.toString()}",
+                    style:
+                        const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                  ),
+                  Text(
+                    "Date :${controller.openTrades[index].openTime.toString()}",
+                    style:
+                        const TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "User ID :${controller.openTrades[index].login.toString()}",
+                        style: const TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w600),
+                      ),
+                      Text(
+                        "Type :${controller.openTrades[index].type.toString()}",
+                        style: const TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w600),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Symbol : ${controller.openTrades[index].symbol.toString()}',
+                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                ),
+                Text(
+                  'Current Price : ${controller.openTrades[index].currentPrice.toString()}',
+                  style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+                ),
+                Text(
+                  'Open Price : ${controller.openTrades[index].openPrice.toString()}',
+                  style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+                ),
+                Text(
+                  'Profit : ${controller.openTrades[index].profit.toString()}',
+                  style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+                ),
+                Text(
+                  'Volume : ${controller.openTrades[index].volume.toString()}',
+                  style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+                ),
+              ],
+            ),
+          )
+
+        ],
+      ),
+    ),
+  );
 }

@@ -41,7 +41,7 @@ class ProfileController extends GetxController {
           log("account info Data Fetched ${success.statusCode.toString()}");
           if (success.statusCode == 200) {
             accountInfoModel.value = AccountInfoModel.fromJson(success.data);
-            print('account name ${accountInfoModel.value.name}');
+            log('account name ${accountInfoModel.value.name}');
             isProfileLoading.value = false;
           } else {
             AuthController.instance.logOut();
