@@ -1,9 +1,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:peanut/routes/app_pages.dart';
 
-import 'module/auth/authbinding.dart';
-import 'module/auth/loginscreen.dart';
+import 'module/auth/auth_binding.dart';
+import 'module/auth/login_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,7 +25,9 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
 
-        home: const LoinScreen(),
+        home: const LogInScreen(),
+        initialRoute: AppPages.INITIAL ,
+        getPages: AppPages.routes
     );
   }
 }
