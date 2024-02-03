@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import '../module/auth/auth_binding.dart';
 import '../module/auth/login_screen.dart';
+import '../module/profile/profile_binding.dart';
 import '../module/profile/profile_screen.dart';
 part 'app_routes.dart';
 
@@ -19,7 +20,7 @@ class AppPages {
     GetPage(
       name: _Paths.PROFILE,
       page: () => const ProfileScreen(),
-
+      binding: ProfileBinding(),
     ),
   ];
 }

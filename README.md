@@ -1,16 +1,17 @@
-# peanut
+# Peanut
 
 A new Flutter project.
 
 ## Getting Started
 
+## Functional features
+
 This project is a starting point for a Flutter application.
+https://peanut.ifxdb.com/docs/clientcabinet/index.html
 
-A few resources to get you started if this is your first Flutter project:
+1. Authorization in the Client account service (Peanut)
+2. Fetching user profile personal data from the Peanut service
+3. Fetching a list of user trades from the Peanut service
+4. Calculation and display of the user's net profit amount
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [Apk link](https://drive.google.com/file/d/1WLU4VMl5cOp5o-cqCmNOzHskfkqUm5vW/view?usp=sharing)

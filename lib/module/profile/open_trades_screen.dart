@@ -23,7 +23,7 @@ class OpenTradesScreen extends GetView<TradesController> {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
-                    Text('Net Profit :${controller.netProfit.value.toStringAsFixed(2).toString()}',style: const TextStyle(fontSize: 24 ,color: Colors.white),),
+                    Text('Net Profit    ${controller.netProfit.value.toStringAsFixed(2).toString()}',style: const TextStyle(fontSize: 24 ,color: Colors.white),),
                   ],
                 ),
               )
