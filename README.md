@@ -12,4 +12,4 @@ https://peanut.ifxdb.com/docs/clientcabinet/index.html
 3. Fetching a list of user trades from the Peanut service
 4. Calculation and display of the user's net profit amount
 
-- [Apk link](https://drive.google.com/file/d/1WLU4VMl5cOp5o-cqCmNOzHskfkqUm5vW/view?usp=sharing)
+- [Apk link](https://drive.google.com/file/d/1WMupc0OAL20SzhZ8DbQ2zBz1nmUuXzwy/view?usp=sharing)
