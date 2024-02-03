@@ -1,10 +1,8 @@
 # Peanut
 
-A new Flutter project.
+Assinment Flutter Project for network call , alert dialog, GetX, Routing , chack authintication, list builder, profile setting ,internet connectivity chack all time.
 
-## Getting Started
-
-## Functional features
+# Functional features
 
 This project is a starting point for a Flutter application.
 https://peanut.ifxdb.com/docs/clientcabinet/index.html
