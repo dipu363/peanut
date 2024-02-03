@@ -64,6 +64,10 @@ class AuthController extends GetxController{
                  log("STORE USER token $userdata ");
                  if(! await UserCache.isUserEmpty()){
                    Get.offAllNamed(Routes.PROFILE);
+                   emailVerifyController.value .text = '';
+                   passWordController.value .text = '';
+                   isChecked.value = false;
+                   update();
                  }else{
                    Get.snackbar("error ", "Token not found");
                  }

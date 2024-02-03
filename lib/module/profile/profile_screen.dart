@@ -3,8 +3,9 @@ import 'package:get/get.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/user_cache.dart';
 import '../auth/auth_controller.dart';
+import '../widget/drawer_widget.dart';
 import 'controller/profile_controller.dart';
-import 'open_trades_screen.dart';
+
 
 class ProfileScreen extends GetView<ProfileController> {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -13,16 +14,67 @@ class ProfileScreen extends GetView<ProfileController> {
   Widget build(BuildContext context) {
     controller.getAccountInformation();
     return Scaffold(
+      drawer: const DrawerWidget(),
       appBar: AppBar(
-        title: const Text('Account Info'),
+        iconTheme: const IconThemeData(
+         // size: 40,//change size on your need
+          color: white,//change color on your need
+        ),
+        backgroundColor: primaryColor.withOpacity(.8),
+        title: const Text('Account Info',style: TextStyle(color: white),),
         centerTitle: false,
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: true,
         actions: [
-          TextButton(
+          IconButton(
+            icon: const Icon(Icons.logout_rounded,color: white,),
               onPressed: () {
-                AuthController.instance.logOut();
+                Get.defaultDialog(
+                  backgroundColor: white,
+                  barrierDismissible: false,
+                  title: 'Are you sure?',
+                  content: const Text('Log out your account'),
+                  contentPadding: const EdgeInsets.all(10),
+                  actions: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          width: 100,
+                          decoration: BoxDecoration(
+                              color: white,
+                              border: Border.all(color: white),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Get.back();
+                            },
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: white, elevation: 0),
+                            child: const Text('Cancel'),
+                          ),
+                        ),
+                        Container(
+                          width: 100,
+                          decoration: BoxDecoration(
+                              color: white,
+                              border: Border.all(color: white),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              AuthController.instance.logOut();
+                            },
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: white, elevation: 0),
+                            child: const Text('Log Out'),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+
+                );
               },
-              child: const Text('Log Out'))
+          )
         ],
       ),
       body: Obx(
@@ -94,24 +146,50 @@ class ProfileScreen extends GetView<ProfileController> {
                         const SizedBox(
                           height: 20,
                         ),
-                        Text(
+                        /*Text(
                           '${controller.phoneNo.value} ',
                           style: const TextStyle(
                             fontSize: 20,
                           ),
-                        ),
+                        ),*/
                         ElevatedButton(
                             onPressed: () async {
                               var userid =(await UserCache.getUserId())!;
                               var token = (await UserCache.getUserToken())!;
                               await controller.getPhoneNo(userid, token);
+                              Get.defaultDialog(
+                                backgroundColor: white,
+                                barrierDismissible: false,
+                                title: 'Last 4 digit Phone No',
+                                content: Text('Last 4 digit of your Phone Number \n${controller.phoneNo.value} '),
+                                contentPadding: const EdgeInsets.all(10),
+                                actions: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Container(
+                                        width: 100,
+                                        height: 40,
+                                        decoration: BoxDecoration(
+                                            color: white,
+                                            border: Border.all(color: white),
+                                            borderRadius: BorderRadius.circular(10)),
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            Get.back();
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                              backgroundColor: white, elevation: 0),
+                                          child: const Text('Back'),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+
+                              );
                             },
                             child: const Text('Get last 4 Digit of number')),
-                        ElevatedButton(
-                            onPressed: () async {
-                              Get.to(const OpenTradesScreen());
-                            },
-                            child: const Text('Open Trades')),
                       ],
                     ),
                   )
@@ -121,3 +199,5 @@ class ProfileScreen extends GetView<ProfileController> {
     );
   }
 }
+
+
